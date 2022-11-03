@@ -20,9 +20,9 @@ export default function indexRouter() {
                 }>
                     <Route index element={<Navigate to='home' />} />
                     <Route path="/home" element={<Home />} />
-                    <Route path="/user-manager/list" element={<UserList />} />
-                    <Route path="/right-manager/role/list" element={<RoleList />} />
-                    <Route path="/right-manager/right/list" element={<RightList />} />
+                    <Route path="/user-manage/list" element={<UserList />} />
+                    <Route path="/right-manage/role/list" element={<RoleList />} />
+                    <Route path="/right-manage/right/list" element={<RightList />} />
                     <Route path="*" element={<NoPermission />} />
                 </Route>
             </Routes>

@@ -13,7 +13,7 @@ export default function TopHeader() {
     const [collapsed, setCollapsed] = useState(false);
 
     const items = [
-        { label: '主管理員', key: '1' }, // 菜单项务必填写 key
+        { label: '超級管理員', key: '1' }, // 菜单项务必填写 key
         { label: '登出', danger: true, key: '2' },
     ];
 

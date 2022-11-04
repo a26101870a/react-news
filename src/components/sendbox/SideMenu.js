@@ -52,7 +52,7 @@ export default function SideMenu() {
             if (item.children?.length) {
                 array.push(
                     getItem(
-                        item.label,
+                        item.title,
                         item.key,
                         iconList[item.key],
                         checkPagePermission(item.children)
@@ -61,7 +61,7 @@ export default function SideMenu() {
                 item["pagepermisson"] &&
                     array.push(
                         getItem(
-                            item.label,
+                            item.title,
                             item.key,
                             iconList[item.key],
                         ))

@@ -18,7 +18,7 @@ export default function RightList() {
         },
         {
             title: '權限名稱',
-            dataIndex: 'label',
+            dataIndex: 'title',
         },
         {
             title: '權限路徑',

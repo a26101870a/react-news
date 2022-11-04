@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import axios from "axios"
-import { Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd'
 import {
     HomeFilled,
     UserOutlined,
     ProfileOutlined,
     SettingOutlined,
     UnlockFilled
-} from '@ant-design/icons';
+} from '@ant-design/icons'
 import './index.css'
 
 const { Sider } = Layout;

@@ -48,6 +48,7 @@ export default function SideMenu() {
     const checkPagePermission = (list) => {
         const array = []
 
+        // eslint-disable-next-line array-callback-return
         list.map(item => {
             if (item.children?.length) {
                 array.push(
@@ -77,6 +78,7 @@ export default function SideMenu() {
                 setMenu(checkPagePermission(res.data))
             }
         )
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

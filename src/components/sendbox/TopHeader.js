@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Layout, Dropdown, Avatar } from 'antd';
 import {
     MenuFoldOutlined,
@@ -11,15 +12,23 @@ const { Header } = Layout;
 
 export default function TopHeader() {
     const [collapsed, setCollapsed] = useState(false);
+    const navigate = useNavigate()
 
     const items = [
-        { label: '超級管理員', key: '1' }, // 菜单项务必填写 key
+        { label: '超級管理員', key: '1' },
         { label: '登出', danger: true, key: '2' },
     ];
 
     function changeCollapsed() {
         setCollapsed(!collapsed)
     }
+
+    function onClick({ key }) {
+        if (key === "2") {
+            localStorage.removeItem("token")
+            navigate("/login")
+        }
+    };
 
     return (
         <Header className="site-layout-background" style={{ padding: '0 16px' }}>
@@ -33,7 +42,7 @@ export default function TopHeader() {
             }
             <div style={{ float: 'right' }}>
                 <span style={{ paddingRight: '16px' }}>歡迎 Admin 回來</span>
-                <Dropdown menu={{ items }}>
+                <Dropdown menu={{ items, onClick }}>
                     <Avatar icon={<UserOutlined />} />
                 </Dropdown>
             </div>

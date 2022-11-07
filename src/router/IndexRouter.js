@@ -14,7 +14,7 @@ export default function indexRouter() {
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path='/' element={
-                    localStorage.getItem("token") === "true" ?
+                    localStorage.getItem("token") ?
                         <NewsSendBox /> :
                         <Navigate to="/login" />
                 }>

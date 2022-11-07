@@ -34,32 +34,39 @@ function getItem(label, key, icon, children) {
 export default function SideMenu() {
     const [collapsed] = useState(false);
     const [menu, setMenu] = useState([]);
-    const navigate = useNavigate()
 
+    const navigate = useNavigate()
     let location = useLocation();
+
+    const { role: { rights } } = JSON.parse(localStorage.getItem("token"))
 
     const selectKeys = [location.pathname]
     const openKeys = ["/" + location.pathname.split("/")[1]]
 
-    const onClick = (e) => {
+    function onClick(e) {
         navigate(e.key);
     };
 
-    const checkPagePermission = (list) => {
+    function checkPagePermission(item) {
+        return item.pagepermisson && rights.includes(item.key)
+    }
+
+    function renderMenu(menuList) {
         const array = []
 
         // eslint-disable-next-line array-callback-return
-        list.map(item => {
-            if (item.children?.length) {
+        menuList.map(item => {
+            if (item.children?.length > 0 &&
+                checkPagePermission(item)) {
                 array.push(
                     getItem(
                         item.title,
                         item.key,
                         iconList[item.key],
-                        checkPagePermission(item.children)
+                        renderMenu(item.children)
                     ))
             } else {
-                item["pagepermisson"] &&
+                checkPagePermission(item) &&
                     array.push(
                         getItem(
                             item.title,
@@ -75,7 +82,7 @@ export default function SideMenu() {
     useEffect(() => {
         axios.get("http://localhost:8000/rights?_embed=children").then(
             res => {
-                setMenu(checkPagePermission(res.data))
+                setMenu(renderMenu(res.data))
             }
         )
         // eslint-disable-next-line react-hooks/exhaustive-deps

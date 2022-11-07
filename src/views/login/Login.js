@@ -1,15 +1,29 @@
 import React, { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import Particles from "react-particles";
 import { loadFull } from "tsparticles";
-
+import axios from 'axios';
 import Options from "./particles.json";
 import './Login.css'
 
 export default function Login() {
+    const navigate = useNavigate()
+
     function onFinish(values) {
-        console.log('Received values of form: ', values);
+        axios.get(`http://localhost:8000/users?username=${values.username}&password=${values.password}&roleState=true&_expand=role`).then(
+            res => {
+                console.log(res.data)
+                if (res.data.length === 0) {
+                    //Login Failed
+                    message.error("用戶名稱不存在或是密碼錯誤")
+                } else {
+                    localStorage.setItem("token", JSON.stringify(res.data[0]))
+                    navigate("/")
+                }
+            }
+        )
     };
 
     const particlesInit = useCallback(async engine => {

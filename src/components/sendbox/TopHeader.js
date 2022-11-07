@@ -13,9 +13,10 @@ const { Header } = Layout;
 export default function TopHeader() {
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate()
+    const { role: { roleName }, username } = JSON.parse(localStorage.getItem("token"))
 
     const items = [
-        { label: '超級管理員', key: '1' },
+        { label: roleName, key: '1' },
         { label: '登出', danger: true, key: '2' },
     ];
 
@@ -41,7 +42,7 @@ export default function TopHeader() {
                     <MenuFoldOutlined onClick={changeCollapsed} />
             }
             <div style={{ float: 'right' }}>
-                <span style={{ paddingRight: '16px' }}>歡迎 Admin 回來</span>
+                <span style={{ paddingRight: '16px' }}>歡迎 {username} 回來</span>
                 <Dropdown menu={{ items, onClick }}>
                     <Avatar icon={<UserOutlined />} />
                 </Dropdown>

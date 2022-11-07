@@ -31,10 +31,12 @@ export default function RightList() {
             title: '操作',
             render: (item) => {
                 return <div>
-                    <Button danger shape="circle"
-                        icon={<DeleteOutlined
-                            onClick={() => confirmMethod(item)}
-                        />} />
+                    <Button
+                        danger
+                        shape="circle"
+                        icon={<DeleteOutlined />}
+                        onClick={() => confirmMethod(item)}
+                    />
 
                     <Popover
                         content={

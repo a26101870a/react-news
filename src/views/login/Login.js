@@ -14,7 +14,6 @@ export default function Login() {
     function onFinish(values) {
         axios.get(`http://localhost:8000/users?username=${values.username}&password=${values.password}&roleState=true&_expand=role`).then(
             res => {
-                console.log(res.data)
                 if (res.data.length === 0) {
                     //Login Failed
                     message.error("用戶名稱不存在或是密碼錯誤")
@@ -34,7 +33,7 @@ export default function Login() {
     }, []);
 
     const particlesLoaded = useCallback(async container => {
-        await console.log(container);
+        return 0
     }, []);
 
     return (

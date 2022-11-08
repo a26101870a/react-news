@@ -1,8 +1,14 @@
 import React, { useState, useEffect, forwardRef } from 'react'
 import { Form, Input, Select } from 'antd'
 
-const UserForm = forwardRef(({ regionList, roleList, isUpdateDisabled }, ref) => {
+const UserForm = forwardRef(({ regionList, roleList, isUpdateDisabled, isUpdate }, ref) => {
     const [isDisabled, setIsDisabled] = useState(false)
+    const { roleId, region } = JSON.parse(localStorage.getItem("token"))
+    const roleObj = {
+        "1": "superadmin",
+        "2": "admin",
+        "3": "editor"
+    }
 
     let regionOptions = []
     let roleOptions = []
@@ -15,6 +21,7 @@ const UserForm = forwardRef(({ regionList, roleList, isUpdateDisabled }, ref) =>
             let optionObject = {
                 value: item.value,
                 label: item.title,
+                disabled: checkRegionDisabled(item),
             }
 
             tmp_regionOptions.push(optionObject)
@@ -33,6 +40,7 @@ const UserForm = forwardRef(({ regionList, roleList, isUpdateDisabled }, ref) =>
             let optionObject = {
                 value: item.id,
                 label: item.roleName,
+                disabled: checkRoleDisabled(item),
             }
 
             tmp_roleOptions.push(optionObject)
@@ -41,6 +49,38 @@ const UserForm = forwardRef(({ regionList, roleList, isUpdateDisabled }, ref) =>
         })
 
         return tmp_roleOptions
+    }
+
+    function checkRegionDisabled(item) {
+        if (isUpdate) {
+            if (roleObj[roleId] === "superadmin") {
+                return false
+            } else {
+                return true
+            }
+        } else {
+            if (roleObj[roleId] === "superadmin") {
+                return false
+            } else {
+                return item.value !== region
+            }
+        }
+    }
+
+    function checkRoleDisabled(item) {
+        if (isUpdate) {
+            if (roleObj[roleId] === "superadmin") {
+                return false
+            } else {
+                return true
+            }
+        } else {
+            if (roleObj[roleId] === "superadmin") {
+                return false
+            } else {
+                return roleObj[item.id] !== "editor"
+            }
+        }
     }
 
     useEffect(() => {

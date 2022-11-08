@@ -21,6 +21,7 @@ export default function UserList() {
     const addForm = useRef(null)
     const updateForm = useRef(null)
 
+    const { roleId, region, username } = JSON.parse(localStorage.getItem("token"))
     const columns = [
         {
             title: '區域',
@@ -84,22 +85,6 @@ export default function UserList() {
             }
         },
     ];
-
-    // function switchMethod(item) {
-    //     item.pagepermisson = item.pagepermisson === 1 ? 0 : 1
-
-    //     setDataSource([...dataSource])
-
-    //     if (item.grade === 1) {
-    //         axios.patch(`http://localhost:8000/rights/${item.id}`, {
-    //             pagepermisson: item.pagepermisson
-    //         })
-    //     } else {
-    //         axios.patch(`http://localhost:8000/rights/${item.id}`, {
-    //             pagepermisson: item.pagepermisson
-    //         })
-    //     }
-    // }
 
     function confirmMethod(item) {
         confirm({
@@ -189,10 +174,21 @@ export default function UserList() {
     }
 
     useEffect(() => {
+        const roleObj = {
+            "1": "superadmin",
+            "2": "admin",
+            "3": "editor"
+        }
+
         axios.get("http://localhost:8000/users?_expand=role").then(res => {
-            setDataSource(res.data);
+            const list = res.data
+            setDataSource(roleObj[roleId] === "superadmin" ? list : [
+                ...list.filter(item => item.username === username),
+                ...list.filter(item => item.region === region &&
+                    roleObj[item.roleId] === "editor")
+            ]);
         })
-    }, [])
+    }, [roleId, region, username])
 
     useEffect(() => {
         axios.get("http://localhost:8000/regions").then(res => {
@@ -252,6 +248,7 @@ export default function UserList() {
                     regionList={regionList}
                     roleList={roleList}
                     ref={updateForm}
+                    isUpdate={true}
                     isUpdateDisabled={isUpdateDisabled}
                 />
             </Modal>

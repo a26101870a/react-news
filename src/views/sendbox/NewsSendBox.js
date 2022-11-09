@@ -1,8 +1,8 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Layout } from 'antd';
 import SideMenu from '../../components/sendbox/SideMenu'
 import TopHeader from '../../components/sendbox/TopHeader'
-import { Layout } from 'antd';
+import NewsRouter from '../../components/sendbox/NewsRouter'
 import './NewsSendBox.css'
 
 const { Content } = Layout;
@@ -21,7 +21,7 @@ export default function NewsSendBox() {
                         minHeight: 280,
                     }}
                 >
-                    <Outlet />
+                    <NewsRouter />
                 </Content>
             </Layout>
         </Layout>

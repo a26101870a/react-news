@@ -48,7 +48,7 @@ export default function SideMenu() {
     };
 
     function checkPagePermission(item) {
-        return item.pagepermisson && rights.includes(item.key)
+        return item.pagepermission && rights.includes(item.key)
     }
 
     function renderMenu(menuList) {

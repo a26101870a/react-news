@@ -44,19 +44,19 @@ export default function RightList() {
                                 style={{ textAlign: "center" }}
                             >
                                 <Switch
-                                    checked={item.pagepermisson}
+                                    checked={item.pagepermission}
                                     onClick={() => switchMethod(item)}
                                 />
                             </div>
                         }
                         title="配置項目"
-                        trigger={item.pagepermisson === undefined ? "" : "click"}
+                        trigger={item.pagepermission === undefined ? "" : "click"}
                     >
                         <Button
                             type="primary"
                             shape="circle"
                             icon={<EditOutlined />}
-                            disabled={item.pagepermisson === undefined}
+                            disabled={item.pagepermission === undefined}
                         />
                     </Popover>
                 </div>
@@ -65,17 +65,17 @@ export default function RightList() {
     ];
 
     function switchMethod(item) {
-        item.pagepermisson = item.pagepermisson === 1 ? 0 : 1
+        item.pagepermission = item.pagepermission === 1 ? 0 : 1
 
         setDataSource([...dataSource])
 
         if (item.grade === 1) {
             axios.patch(`http://localhost:8000/rights/${item.id}`, {
-                pagepermisson: item.pagepermisson
+                pagepermission: item.pagepermission
             })
         } else {
             axios.patch(`http://localhost:8000/rights/${item.id}`, {
-                pagepermisson: item.pagepermisson
+                pagepermission: item.pagepermission
             })
         }
     }

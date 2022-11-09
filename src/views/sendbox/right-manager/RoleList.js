@@ -67,18 +67,18 @@ export default function RoleList() {
 
     function deleteMethod(item) {
         setDataSource(dataSource.filter(data => data.id !== item.id))
-        axios.delete(`http://localhost:8000/roles/${item.id}`)
+        axios.delete(`/roles/${item.id}`)
     }
 
 
     useEffect(() => {
-        axios.get("http://localhost:8000/roles").then(res => {
+        axios.get("/roles").then(res => {
             setDataSource(res.data);
         })
     }, [])
 
     useEffect(() => {
-        axios.get("http://localhost:8000/rights?_embed=children").then(res => {
+        axios.get("/rights?_embed=children").then(res => {
             setRightsList(res.data);
         })
     }, [])
@@ -97,7 +97,7 @@ export default function RoleList() {
             return item
         }))
         //pathch
-        axios.patch(`http://localhost:8000/roles/${currentId}`, {
+        axios.patch(`/roles/${currentId}`, {
             rights: currentRights
         })
 

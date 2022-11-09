@@ -70,11 +70,11 @@ export default function RightList() {
         setDataSource([...dataSource])
 
         if (item.grade === 1) {
-            axios.patch(`http://localhost:8000/rights/${item.id}`, {
+            axios.patch(`/rights/${item.id}`, {
                 pagepermission: item.pagepermission
             })
         } else {
-            axios.patch(`http://localhost:8000/rights/${item.id}`, {
+            axios.patch(`/rights/${item.id}`, {
                 pagepermission: item.pagepermission
             })
         }
@@ -98,7 +98,7 @@ export default function RightList() {
         if (item.grade === 1) {
             setDataSource(dataSource.filter(data => data.id !== item.id))
 
-            axios.delete(`http://localhost:8000/rights/${item.id}`)
+            axios.delete(`/rights/${item.id}`)
         } else {
             let list = dataSource.filter(data => data.id === item.rightId)
 
@@ -106,12 +106,12 @@ export default function RightList() {
 
             setDataSource([...dataSource])
 
-            axios.delete(`http://localhost:8000/children/${item.id}`)
+            axios.delete(`/children/${item.id}`)
         }
     }
 
     useEffect(() => {
-        axios.get("http://localhost:8000/rights?_embed=children").then(res => {
+        axios.get("/rights?_embed=children").then(res => {
             const list = res.data
 
             list.forEach(item => {

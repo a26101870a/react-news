@@ -80,7 +80,7 @@ export default function SideMenu() {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:8000/rights?_embed=children").then(
+        axios.get("/rights?_embed=children").then(
             res => {
                 setMenu(renderMenu(res.data))
             }

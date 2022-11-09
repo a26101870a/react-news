@@ -27,8 +27,8 @@ export default function NewsRouter() {
 
     useEffect(() => {
         Promise.all([
-            axios.get("http://localhost:8000/rights"),
-            axios.get("http://localhost:8000/children"),
+            axios.get("/rights"),
+            axios.get("/children"),
         ]).then(res => {
             setBackRouteList([...res[0].data, ...res[1].data])
         })
@@ -40,6 +40,7 @@ export default function NewsRouter() {
         } else {
             setShowRouteFlag(false)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location])
 
 

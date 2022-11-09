@@ -12,7 +12,7 @@ export default function Login() {
     const navigate = useNavigate()
 
     function onFinish(values) {
-        axios.get(`http://localhost:8000/users?username=${values.username}&password=${values.password}&roleState=true&_expand=role`).then(
+        axios.get(`/users?username=${values.username}&password=${values.password}&roleState=true&_expand=role`).then(
             res => {
                 if (res.data.length === 0) {
                     //Login Failed

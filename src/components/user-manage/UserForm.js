@@ -87,7 +87,6 @@ const UserForm = forwardRef(({ regionList, roleList, isUpdateDisabled, isUpdate 
         setIsDisabled(isUpdateDisabled)
     }, [isUpdateDisabled])
 
-
     regionOptions = createRegionOptions()
     roleOptions = createRoleOptions()
 

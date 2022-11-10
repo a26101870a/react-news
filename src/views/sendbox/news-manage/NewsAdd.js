@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Button, PageHeader, Steps, Form, Input, Select } from 'antd';
+import { useNavigate } from 'react-router-dom'
+import { Button, PageHeader, Steps, Form, Input, Select, message, notification } from 'antd';
 import axios from 'axios'
 import style from './News.module.css'
 import NewsEditor from '../../../components/news-manage/NewsEditor';
@@ -7,7 +8,15 @@ import NewsEditor from '../../../components/news-manage/NewsEditor';
 export default function NewsAdd() {
     const [current, setCurrent] = useState(0)
     const [categoryList, setCategoryList] = useState([])
+
+    const [formInfo, setFormInfo] = useState({})
+    const [content, setContent] = useState("")
+
     const NewsForm = useRef(null)
+    const navigate = useNavigate()
+
+    const user = JSON.parse(localStorage.getItem("token"))
+
     const items = [
         {
             title: '基本資訊',
@@ -28,14 +37,18 @@ export default function NewsAdd() {
     function handelNext() {
         if (current === 0) {
             NewsForm.current.validateFields().then(res => {
+                setFormInfo(res)
                 setCurrent(prevCurrent => prevCurrent + 1)
             }).catch(err => {
                 console.log(err)
             })
         } else {
-            setCurrent(prevCurrent => prevCurrent + 1)
+            if (content === "" || content.trim() === "<p></p>") {
+                message.error("新聞內容不得為空")
+            } else {
+                setCurrent(prevCurrent => prevCurrent + 1)
+            }
         }
-
     }
 
     function handelPrevious() {
@@ -58,6 +71,33 @@ export default function NewsAdd() {
         })
 
         return tmp_categoryOptions
+    }
+
+    function handleSave(auditState) {
+        axios.post('/news', {
+            ...formInfo,
+            "content": content,
+            "region": user.region ? user.region : "全球",
+            "author": user.username,
+            "roleId": user.roleId,
+            "auditState": auditState,
+            "publishState": 0,
+            "createTime": Date.now(),
+            "star": 0,
+            "view": 0,
+            // "publishTime": 0
+        }).then(() => {
+            auditState === 0 ?
+                navigate('/news-manage/draft') :
+                navigate('/audit-manage/list')
+
+            notification.info({
+                message: "通知",
+                description:
+                    `您可以到${auditState === 0 ? "草稿箱" : "審核列表"}中查看您的新聞。`,
+                placement: 'bottomRight',
+            })
+        })
     }
 
     useEffect(() => {
@@ -121,7 +161,7 @@ export default function NewsAdd() {
                 <div className={current === 1 ? '' : style.active}>
                     <NewsEditor
                         getContent={(value) => {
-                            console.log(value);
+                            setContent(value);
                         }}
                     />
                 </div>
@@ -132,8 +172,18 @@ export default function NewsAdd() {
                 {
                     current === 2 &&
                     <span>
-                        <Button type='primary'>保存草稿</Button>
-                        <Button danger>提交審核</Button>
+                        <Button
+                            type='primary'
+                            onClick={() => handleSave(0)}
+                        >
+                            保存草稿
+                        </Button>
+                        <Button
+                            danger
+                            onClick={() => handleSave(1)}
+                        >
+                            提交審核
+                        </Button>
                     </span>
                 }
                 {
@@ -155,6 +205,5 @@ export default function NewsAdd() {
                 }
             </div>
         </div>
-
     )
 }

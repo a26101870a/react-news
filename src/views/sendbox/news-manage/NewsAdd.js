@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Button, PageHeader, Steps, Form, Input, Select } from 'antd';
 import axios from 'axios'
 import style from './News.module.css'
+import NewsEditor from '../../../components/news-manage/NewsEditor';
 
 export default function NewsAdd() {
     const [current, setCurrent] = useState(0)
@@ -27,7 +28,6 @@ export default function NewsAdd() {
     function handelNext() {
         if (current === 0) {
             NewsForm.current.validateFields().then(res => {
-                console.log(res)
                 setCurrent(prevCurrent => prevCurrent + 1)
             }).catch(err => {
                 console.log(err)
@@ -37,6 +37,7 @@ export default function NewsAdd() {
         }
 
     }
+
     function handelPrevious() {
         setCurrent(prevCurrent => prevCurrent - 1)
     }
@@ -117,7 +118,13 @@ export default function NewsAdd() {
                         </Form.Item>
                     </Form>
                 </div>
-                <div className={current === 1 ? '' : style.active}></div>
+                <div className={current === 1 ? '' : style.active}>
+                    <NewsEditor
+                        getContent={(value) => {
+                            console.log(value);
+                        }}
+                    />
+                </div>
                 <div className={current === 2 ? '' : style.active}></div>
             </div>
 

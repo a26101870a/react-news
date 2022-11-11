@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, Link } from "react-router-dom";
-import { Table, Tag, Button, Modal, Popover, Switch, notification } from 'antd'
-import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
+import { Table, Tag, Button, notification } from 'antd'
 import axios from 'axios'
 
 export default function AuditList() {
@@ -100,7 +99,7 @@ export default function AuditList() {
 
     function handlePublish(item) {
         axios.patch(`/news/${item.id}`, {
-            "publishState": 2,
+            publishState: 2,
         })
             .then(() => {
                 navigate('/publish-manage/published')

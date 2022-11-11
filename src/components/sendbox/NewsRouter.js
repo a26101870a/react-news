@@ -18,6 +18,8 @@ export default function NewsRouter() {
         "/news-manage/add",
         "/news-manage/draft",
         "/news-manage/category",
+        "/news-manage/preview/",
+        "/news-manage/update/",
         "/audit-manage/audit",
         "/audit-manage/list",
         "/publish-manage/unpublished",
@@ -49,10 +51,24 @@ export default function NewsRouter() {
             return true
         } else {
             let isRouterExisting = LocalRouterMap.includes(location.pathname)
-            let itemPagepermission = BackRouteList.filter(item =>
+            let item = BackRouteList.filter(item =>
                 item.key === location.pathname)[0]
 
-            return isRouterExisting && itemPagepermission.pagepermission
+            if (location.pathname.includes('/news-manage/preview')) {
+                item = BackRouteList.filter(item =>
+                    item.key === '/news-manage/preview/:id')[0]
+
+                isRouterExisting = true
+            }
+
+            if (location.pathname.includes('/news-manage/update')) {
+                item = BackRouteList.filter(item =>
+                    item.key === '/news-manage/update/:id')[0]
+
+                isRouterExisting = true
+            }
+
+            return isRouterExisting && (item.pagepermission || item.routepermission)
         }
     }
 
@@ -60,11 +76,20 @@ export default function NewsRouter() {
         if (BackRouteList.length === 0) {
             return true
         } else {
+            let item = BackRouteList.filter(item =>
+                item.key === location.pathname)[0]
 
-            let itemPath = BackRouteList.filter(item =>
-                item.key === location.pathname)[0].key
+            if (location.pathname.includes('/news-manage/preview')) {
+                item = BackRouteList.filter(item =>
+                    item.key === '/news-manage/preview/:id')[0]
+            }
 
-            return rights.includes(itemPath)
+            if (location.pathname.includes('/news-manage/update')) {
+                item = BackRouteList.filter(item =>
+                    item.key === '/news-manage/update/:id')[0]
+            }
+
+            return rights.includes(item.key)
         }
     }
 

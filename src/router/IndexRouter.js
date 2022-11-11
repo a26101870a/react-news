@@ -16,6 +16,8 @@ import Unpublished from '../views/sendbox/publish-manage/Unpublished'
 import Published from '../views/sendbox/publish-manage/Published'
 import Sunset from '../views/sendbox/publish-manage/Sunset'
 import NoPermission from '../views/sendbox/nopermission/NoPermission'
+import NewsPreview from '../views/sendbox/news-manage/NewsPreview'
+import NewsUpdate from '../views/sendbox/news-manage/NewsUpdate'
 
 const RouterList = [
     { path: "/home", element: <Home /> },
@@ -25,6 +27,8 @@ const RouterList = [
     { path: "/news-manage/add", element: < NewsAdd /> },
     { path: "/news-manage/draft", element: <NewsDraft /> },
     { path: "/news-manage/category", element: <NewsCategory /> },
+    { path: "/news-manage/preview/:id", element: <NewsPreview /> },
+    { path: "/news-manage/update/:id", element: <NewsUpdate /> },
     { path: "/audit-manage/audit", element: <Audit /> },
     { path: "/audit-manage/list", element: <AuditList /> },
     { path: "/publish-manage/unpublished", element: <Unpublished /> },

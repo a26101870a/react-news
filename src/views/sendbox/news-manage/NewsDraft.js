@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
-import { Table, Button, Modal } from 'antd'
+import { useNavigate, Link } from "react-router-dom";
+import { Table, Button, Modal, notification } from 'antd'
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, UploadOutlined } from '@ant-design/icons'
 import axios from 'axios'
 
@@ -8,6 +9,7 @@ const { confirm } = Modal;
 
 export default function NewsDraft() {
     const [dataSource, setDataSource] = useState([])
+    const navigate = useNavigate()
     const { username } = JSON.parse(localStorage.getItem("token"))
 
     const columns = [
@@ -21,6 +23,11 @@ export default function NewsDraft() {
         {
             title: '新聞標題',
             dataIndex: 'title',
+            render: (title, item) => {
+                return <Link to={`/news-manage/preview/${item.id}`}>
+                    {title}
+                </Link>
+            }
         },
         {
             title: '作者',
@@ -46,11 +53,13 @@ export default function NewsDraft() {
                     <Button
                         shape="circle"
                         icon={<EditOutlined />}
+                        onClick={() => navigate(`/news-manage/update/${item.id}`)}
                     />
                     <Button
                         type="primary"
                         shape="circle"
                         icon={<UploadOutlined />}
+                        onClick={() => handleCheck(item.id)}
                     />
                 </div>
             }
@@ -70,14 +79,31 @@ export default function NewsDraft() {
     }
 
     function deleteMethod(item) {
-        setDataSource(dataSource.filter(data => data.id !== item.id))
+        setDataSource(dataSource
+            .filter(data => data.id !== item.id))
         axios.delete(`/news/${item.id}`)
     }
 
-    useEffect(() => {
-        axios.get(`/news?author=${username}&auditState=0&_expand=category`).then(res => {
-            setDataSource(res.data);
+    function handleCheck(id) {
+        axios.patch(`/news/${id}`, {
+            auditState: 1
+        }).then(() => {
+            navigate('/audit-manage/list')
+
+            notification.info({
+                message: "通知",
+                description:
+                    `您可以到審核列表中查看您的新聞。`,
+                placement: 'bottomRight',
+            })
         })
+    }
+
+    useEffect(() => {
+        axios.get(`/news?author=${username}&auditState=0&_expand=category`)
+            .then(res => {
+                setDataSource(res.data);
+            })
     }, [username])
 
     return (

@@ -37,7 +37,7 @@ export default function NewsDraft() {
             title: '新聞分類',
             dataIndex: 'category',
             render: (category) => {
-                return category.title
+                return <div>{category.title}</div>
             }
         },
         {

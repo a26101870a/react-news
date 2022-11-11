@@ -10,6 +10,7 @@ export default function NewsPreview() {
 
     const auditList = ["未審核", "審核中", "已通過", "未通過"]
     const publishList = ["未發布", "待發布", "已上線", "已下線"]
+    const colorList = ["black", "orange", "green", "red"]
 
     useEffect(() => {
         axios.get(`/news/${id}?_expand=category&_expand=role`).then(res => {
@@ -44,13 +45,17 @@ export default function NewsPreview() {
                                 {newsInfo.region}
                             </Descriptions.Item>
                             <Descriptions.Item
-                                contentStyle={{ color: "red" }}
+                                contentStyle={{
+                                    color: colorList[newsInfo.auditState]
+                                }}
                                 label="審核狀態"
                             >
                                 {auditList[newsInfo.auditState]}
                             </Descriptions.Item>
                             <Descriptions.Item
-                                contentStyle={{ color: "red" }}
+                                contentStyle={{
+                                    color: colorList[newsInfo.publishState]
+                                }}
                                 label="發布狀態"
                             >
                                 {publishList[newsInfo.publishState]}

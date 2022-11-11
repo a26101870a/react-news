@@ -79,18 +79,19 @@ export default function NewsUpdate() {
             ...formInfo,
             "content": content,
             "auditState": auditState,
-        }).then(() => {
-            auditState === 0 ?
-                navigate('/news-manage/draft') :
-                navigate('/audit-manage/list')
-
-            notification.info({
-                message: "通知",
-                description:
-                    `您可以到${auditState === 0 ? "草稿箱" : "審核列表"}中查看您的新聞。`,
-                placement: 'bottomRight',
-            })
         })
+            .then(() => {
+                auditState === 0 ?
+                    navigate('/news-manage/draft') :
+                    navigate('/audit-manage/list')
+
+                notification.info({
+                    message: "通知",
+                    description:
+                        `您可以到${auditState === 0 ? "草稿箱" : "審核列表"}中查看您的新聞。`,
+                    placement: 'bottomRight',
+                })
+            })
     }
 
     useEffect(() => {

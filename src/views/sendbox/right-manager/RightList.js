@@ -37,7 +37,6 @@ export default function RightList() {
                         icon={<DeleteOutlined />}
                         onClick={() => confirmMethod(item)}
                     />
-
                     <Popover
                         content={
                             <div
@@ -120,7 +119,7 @@ export default function RightList() {
                 }
             });
 
-            setDataSource(res.data);
+            setDataSource(list);
         })
     }, [])
 

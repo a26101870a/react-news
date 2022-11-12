@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useNavigate, Link } from "react-router-dom";
-import { Card, Col, Row, List, Avatar, Drawer, Tree } from 'antd';
+import { Link } from "react-router-dom";
+import { Card, Col, Row, List, Avatar, Drawer } from 'antd';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import axios from 'axios'
 import * as echarts from 'echarts';
@@ -19,7 +19,6 @@ export default function Home() {
     const barRef = useRef()
     const pieRef = useRef()
 
-    const navigate = useNavigate()
     const { username, region, role: { roleName } } = JSON.parse(localStorage.getItem("token"))
 
     useEffect(() => {

@@ -9,6 +9,7 @@ import {
     SettingOutlined,
     UnlockFilled
 } from '@ant-design/icons'
+import { connect } from 'react-redux';
 import './index.css'
 
 const { Sider } = Layout;
@@ -31,10 +32,8 @@ function getItem(label, key, icon, children) {
     };
 }
 
-export default function SideMenu() {
-    const [collapsed] = useState(false);
+function SideMenu(props) {
     const [menu, setMenu] = useState([]);
-
     const navigate = useNavigate()
     let location = useLocation();
 
@@ -89,7 +88,7 @@ export default function SideMenu() {
     }, [])
 
     return (
-        <Sider trigger={null} collapsible collapsed={collapsed}>
+        <Sider trigger={null} collapsible collapsed={props.isCollapsed}>
             <div style={{ display: "flex", height: "100%", "flexDirection": "column" }}>
                 <div className="logo">全球新聞發布管理系統</div>
                 <div style={{ flex: 1, "overflow": "auto" }}>
@@ -106,3 +105,9 @@ export default function SideMenu() {
         </Sider>
     )
 }
+
+const mapStateToProps = ({ CollapsedReducer: { isCollapsed } }) => ({
+    isCollapsed
+})
+
+export default connect(mapStateToProps)(SideMenu)

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Outlet, useLocation } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { Spin } from 'antd';
 import NoPermission from '../../views/sendbox/nopermission/NoPermission'
 
-export default function NewsRouter() {
+function NewsRouter(props) {
     const [BackRouteList, setBackRouteList] = useState([])
     const [showRouteFlag, setShowRouteFlag] = useState(false)
     const location = useLocation()
@@ -94,9 +96,15 @@ export default function NewsRouter() {
     }
 
     return (
-        <>
+        <Spin size="large" spinning={props.isLoading}>
             {showRouteFlag && <Outlet />}
             {!showRouteFlag && <NoPermission />}
-        </>
+        </Spin>
     )
 }
+
+const mapStateToProps = ({ LoadingReducer: { isLoading } }) => ({
+    isLoading
+})
+
+export default connect(mapStateToProps)(NewsRouter)

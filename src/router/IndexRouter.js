@@ -18,6 +18,8 @@ import Sunset from '../views/sendbox/publish-manage/Sunset'
 import NoPermission from '../views/sendbox/nopermission/NoPermission'
 import NewsPreview from '../views/sendbox/news-manage/NewsPreview'
 import NewsUpdate from '../views/sendbox/news-manage/NewsUpdate'
+import News from '../views/news/News'
+import Detail from '../views/news/Detail'
 
 const RouterList = [
     { path: "/home", element: <Home /> },
@@ -41,6 +43,8 @@ export default function indexRouter() {
         <HashRouter>
             <Routes>
                 <Route path="/login" element={<Login />} />
+                <Route path="/news" element={<News />} />
+                <Route path="/detail/:id" element={<Detail />} />
                 <Route path='/' element={
                     localStorage.getItem("token") ?
                         <NewsSendBox /> :

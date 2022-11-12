@@ -22,6 +22,7 @@ export default function UserList() {
     const updateForm = useRef(null)
 
     const { roleId, region, username } = JSON.parse(localStorage.getItem("token"))
+
     const columns = [
         {
             title: '區域',

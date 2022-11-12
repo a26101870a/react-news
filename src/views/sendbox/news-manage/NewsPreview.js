@@ -63,7 +63,7 @@ export default function NewsPreview() {
                             <Descriptions.Item label="瀏覽數">
                                 {newsInfo.view}
                             </Descriptions.Item>
-                            <Descriptions.Item label="喜歡">
+                            <Descriptions.Item label="讚">
                                 {newsInfo.star}
                             </Descriptions.Item>
                             <Descriptions.Item label="評論數">

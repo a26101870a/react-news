@@ -22,33 +22,33 @@ import News from '../views/news/News'
 import Detail from '../views/news/Detail'
 
 const RouterList = [
-    { path: "/home", element: <Home /> },
-    { path: "/user-manage/list", element: <UserList /> },
-    { path: "/right-manage/role/list", element: <RoleList /> },
-    { path: "/right-manage/right/list", element: <RightList /> },
-    { path: "/news-manage/add", element: < NewsAdd /> },
-    { path: "/news-manage/draft", element: <NewsDraft /> },
-    { path: "/news-manage/category", element: <NewsCategory /> },
-    { path: "/news-manage/preview/:id", element: <NewsPreview /> },
-    { path: "/news-manage/update/:id", element: <NewsUpdate /> },
-    { path: "/audit-manage/audit", element: <Audit /> },
-    { path: "/audit-manage/list", element: <AuditList /> },
-    { path: "/publish-manage/unpublished", element: <Unpublished /> },
-    { path: "/publish-manage/published", element: <Published /> },
-    { path: "/publish-manage/sunset", element: <Sunset /> }
+    { path: '/home', element: <Home /> },
+    { path: '/user-manage/list', element: <UserList /> },
+    { path: '/right-manage/role/list', element: <RoleList /> },
+    { path: '/right-manage/right/list', element: <RightList /> },
+    { path: '/news-manage/add', element: < NewsAdd /> },
+    { path: '/news-manage/draft', element: <NewsDraft /> },
+    { path: '/news-manage/category', element: <NewsCategory /> },
+    { path: '/news-manage/preview/:id', element: <NewsPreview /> },
+    { path: '/news-manage/update/:id', element: <NewsUpdate /> },
+    { path: '/audit-manage/audit', element: <Audit /> },
+    { path: '/audit-manage/list', element: <AuditList /> },
+    { path: '/publish-manage/unpublished', element: <Unpublished /> },
+    { path: '/publish-manage/published', element: <Published /> },
+    { path: '/publish-manage/sunset', element: <Sunset /> }
 ]
 
 export default function indexRouter() {
     return (
         <HashRouter>
             <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/news" element={<News />} />
-                <Route path="/detail/:id" element={<Detail />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/news' element={<News />} />
+                <Route path='/detail/:id' element={<Detail />} />
                 <Route path='/' element={
-                    localStorage.getItem("token") ?
+                    localStorage.getItem('token') ?
                         <NewsSendBox /> :
-                        <Navigate to="/login" />
+                        <Navigate to='/login' />
                 }>
                     <Route index element={<Navigate to='home' />} />
                     {RouterList.map(item =>
@@ -58,7 +58,7 @@ export default function indexRouter() {
                             element={item.element}
                         />
                     )}
-                    <Route path="*" element={<NoPermission />} />
+                    <Route path='*' element={<NoPermission />} />
                 </Route>
             </Routes>
         </HashRouter>

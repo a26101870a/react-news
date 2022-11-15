@@ -24,3 +24,10 @@
 .ant-layout {
     height: 100%;
 }
+
+.content {
+    margin: '24px 16px';
+    padding: 24px;
+    min-height: 280px;
+    overflow-y: scroll;
+}

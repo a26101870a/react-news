@@ -5,3 +5,14 @@
     margin: 10px;
     text-align: center;
 }
+
+.flex {
+    flex: 1;
+    overflow: auto;
+}
+
+.sideMenu {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}

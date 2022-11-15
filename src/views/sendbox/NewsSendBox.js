@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react'
 import { Layout } from 'antd';
+import NProgress from 'nprogress';
+
 import SideMenu from '../../components/sendbox/SideMenu'
 import TopHeader from '../../components/sendbox/TopHeader'
 import NewsRouter from '../../components/sendbox/NewsRouter'
+
 import './NewsSendBox.css'
-import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'
 
 const { Content } = Layout;
 
 export default function NewsSendBox() {
+    //progress bar starts
     NProgress.start();
 
     useEffect(() => {
@@ -21,15 +24,7 @@ export default function NewsSendBox() {
             <SideMenu />
             <Layout className="site-layout">
                 <TopHeader />
-                <Content
-                    className="site-layout-background"
-                    style={{
-                        margin: '24px 16px',
-                        padding: 24,
-                        minHeight: 280,
-                        overflowY: "scroll",
-                    }}
-                >
+                <Content className="site-layout-background content" >
                     <NewsRouter />
                 </Content>
             </Layout>

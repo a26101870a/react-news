@@ -1,18 +1,19 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Layout, Dropdown, Avatar } from 'antd';
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     UserOutlined,
 } from '@ant-design/icons';
-import { connect } from 'react-redux';
+
 
 const { Header } = Layout;
 
 function TopHeader(props) {
     const navigate = useNavigate()
-    const { role: { roleName }, username } = JSON.parse(localStorage.getItem("token"))
+    const { role: { roleName }, username } = JSON.parse(localStorage.getItem('token'))
 
     const items = [
         { label: roleName, key: '1' },
@@ -23,19 +24,16 @@ function TopHeader(props) {
         props.changeCollapsed()
     }
 
+    //if user click logout button, navigate to login page and empty local storage.
     function onClick({ key }) {
-        if (key === "2") {
-            localStorage.removeItem("token")
-            navigate("/login")
+        if (key === '2') {
+            localStorage.removeItem('token')
+            navigate('/login')
         }
     };
 
     return (
-        <Header className="site-layout-background" style={{ padding: '0 16px' }}>
-            {/* {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-                className: 'trigger',
-                onClick: () => setCollapsed(!collapsed),
-            })} */}
+        <Header className='site-layout-background topHeader' >
             {
                 props.isCollapsed ?
                     <MenuUnfoldOutlined onClick={changeCollapsed} /> :
@@ -66,7 +64,7 @@ const mapStateToProps = ({ CollapsedReducer: { isCollapsed } }) => {
 const mapDispatchToProps = {
     changeCollapsed() {
         return {
-            type: "change_collapsed"
+            type: 'change_collapsed'
         }
     }
 }

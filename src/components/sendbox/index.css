@@ -16,3 +16,7 @@
     height: 100%;
     flex-direction: column;
 }
+
+.topHeader {
+    padding: 0 16px;
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, Link } from "react-router-dom";
-import { Table, Tag, Button, notification } from 'antd'
+import { Link } from "react-router-dom";
+import { Table, Button, notification } from 'antd'
 import axios from 'axios'
 
 export default function Audit() {
